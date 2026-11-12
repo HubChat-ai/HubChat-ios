@@ -1,11 +1,10 @@
 # HubChat iOS SDK
 
-ویجت چت پشتیبانی هاب‌چت برای اپ‌های iOS (UIKit و SwiftUI)، با همان ظاهر و امکانات ویجت سایت. حداقل iOS 13.
+ویجت چت پشتیبانی هاب‌چت برای اپ‌های iOS (UIKit و SwiftUI) با Swift Package Manager، با همان ظاهر و امکانات ویجت سایت. حداقل iOS 13.
 
 ## نصب
-- **Swift Package Manager:** در Xcode «File > Add Package Dependencies» آدرس `https://github.com/HubChat-ai/hubchat-ios.git` را با نسخه‌ی `1.0.0` اضافه کنید.
-  در Package.swift: `.package(url: "https://github.com/HubChat-ai/hubchat-ios.git", from: "1.0.0")`
-- **CocoaPods:** `pod 'HubChat', :git => 'https://github.com/HubChat-ai/hubchat-ios.git'`
+- **Swift Package Manager:** در Xcode «File > Add Package Dependencies» آدرس `https://github.com/HubChat-ai/HubChat-ios.git` را با نسخه‌ی `1.0.1` اضافه کنید.
+  در Package.swift: `.package(url: "https://github.com/HubChat-ai/HubChat-ios.git", from: "1.0.1")`
 
 ## استفاده
 ```swift
