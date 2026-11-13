@@ -13,8 +13,8 @@
 کلید را از پنل هاب‌چت بگیرید: «تنظیمات > کانال‌ها > افزودن کانال > اپلیکیشن موبایل». کلید با `hc_` شروع می‌شود و در صفحه‌ی همان کانال، کنار نمونه‌کد نصب، نمایش داده می‌شود.
 
 ## نصب
-- **Swift Package Manager:** در Xcode «File > Add Package Dependencies» آدرس `https://github.com/HubChat-ai/HubChat-ios.git` را با نسخه‌ی `1.0.1` اضافه کنید.
-  در Package.swift: `.package(url: "https://github.com/HubChat-ai/HubChat-ios.git", from: "1.0.1")`
+- **Swift Package Manager:** در Xcode «File > Add Package Dependencies» آدرس `https://github.com/HubChat-ai/HubChat-ios.git` را با نسخه‌ی `1.0.2` اضافه کنید.
+  در Package.swift: `.package(url: "https://github.com/HubChat-ai/HubChat-ios.git", from: "1.0.2")`
 
 ## استفاده
 ```swift
