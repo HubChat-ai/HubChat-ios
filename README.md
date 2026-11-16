@@ -13,8 +13,8 @@
 کلید را از پنل هاب‌چت بگیرید: «تنظیمات > کانال‌ها > افزودن کانال > اپلیکیشن موبایل». کلید با `hc_` شروع می‌شود و در صفحه‌ی همان کانال، کنار نمونه‌کد نصب، نمایش داده می‌شود.
 
 ## نصب
-- **Swift Package Manager:** در Xcode «File > Add Package Dependencies» آدرس `https://github.com/HubChat-ai/HubChat-ios.git` را با نسخه‌ی `1.0.3` اضافه کنید.
-  در Package.swift: `.package(url: "https://github.com/HubChat-ai/HubChat-ios.git", from: "1.0.3")`
+- **Swift Package Manager:** در Xcode «File > Add Package Dependencies» آدرس `https://github.com/HubChat-ai/HubChat-ios.git` را با نسخه‌ی `1.0.4` اضافه کنید.
+  در Package.swift: `.package(url: "https://github.com/HubChat-ai/HubChat-ios.git", from: "1.0.4")`
 
 ## استفاده
 ```swift
@@ -48,6 +48,22 @@ NotificationCenter.default.addObserver(forName: .hubChatUnreadChanged, object: n
 ```swift
 HubChat.setScreen("checkout", title: "تکمیل خرید")
 ```
+
+### معرفی کاربر لاگین‌کرده
+
+```swift
+HubChat.identify([
+    "user_id": user.id,
+    "name": user.fullName,
+    "mobile": user.mobile,
+    "custom": ["plan": "VIP"],
+    "signature": signatureFromYourServer, // HMAC-SHA256 شناسه با کلید مخفی، روی سرور
+])
+
+HubChat.logout() // هنگام خروج از حساب
+```
+
+همه‌ی فیلدها و روش ساخت امضا: https://hubchat.ir/docs/widget-identify
 
 ## پشتیبانی
 - مستندات: https://hubchat.ir/docs/connect-channel/mobile_sdk

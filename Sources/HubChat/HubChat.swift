@@ -118,6 +118,36 @@ public final class HubChat: NSObject {
         shared.sendScreen()
     }
 
+    private var identity: [String: Any]?
+    private var pendingLogout = false
+
+    /// Identifies the logged-in user (name, mobile, email, national_code, …, "custom"
+    /// and the server-made "signature"). See https://hubchat.ir/docs/widget-identify
+    public static func identify(_ user: [String: Any]) {
+        guard JSONSerialization.isValidJSONObject(user) else { return }
+        shared.identity = user
+        shared.sendIdentity()
+    }
+
+    /// Call on sign-out: the chat of this user is cleared from the device.
+    public static func logout() {
+        shared.identity = nil
+        shared.pendingLogout = true
+        shared.sendIdentity()
+    }
+
+    private func sendIdentity() {
+        guard loaded else { return }
+        if pendingLogout {
+            pendingLogout = false
+            webView.evaluateJavaScript("window.postMessage({source:'hubchat-loader',type:'logout'},'*');")
+        }
+        guard let identity,
+              let data = try? JSONSerialization.data(withJSONObject: ["source": "hubchat-loader", "type": "identify", "user": identity]),
+              let payload = String(data: data, encoding: .utf8) else { return }
+        webView.evaluateJavaScript("window.postMessage(\(payload),'*');")
+    }
+
     private func sendScreen() {
         guard loaded, let screen,
               let data = try? JSONSerialization.data(withJSONObject: ["source": "hubchat-loader", "type": "page"].merging(screen) { $1 }),
@@ -165,6 +195,7 @@ public final class HubChat: NSObject {
         case "close": HubChat.close()
         case "ready":
             sendScreen()
+            sendIdentity()
             if isOpen { command("open") }
         case "unread": if !isOpen { unread = (message["count"] as? Int) ?? unread + 1 }
         default: break
