@@ -13,8 +13,8 @@
 کلید را از پنل هاب‌چت بگیرید: «تنظیمات > کانال‌ها > افزودن کانال > اپلیکیشن موبایل». کلید با `hc_` شروع می‌شود و در صفحه‌ی همان کانال، کنار نمونه‌کد نصب، نمایش داده می‌شود.
 
 ## نصب
-- **Swift Package Manager:** در Xcode «File > Add Package Dependencies» آدرس `https://github.com/HubChat-ai/HubChat-ios.git` را با نسخه‌ی `1.0.2` اضافه کنید.
-  در Package.swift: `.package(url: "https://github.com/HubChat-ai/HubChat-ios.git", from: "1.0.2")`
+- **Swift Package Manager:** در Xcode «File > Add Package Dependencies» آدرس `https://github.com/HubChat-ai/HubChat-ios.git` را با نسخه‌ی `1.0.3` اضافه کنید.
+  در Package.swift: `.package(url: "https://github.com/HubChat-ai/HubChat-ios.git", from: "1.0.3")`
 
 ## استفاده
 ```swift
@@ -39,6 +39,15 @@ NotificationCenter.default.addObserver(forName: .hubChatUnreadChanged, object: n
 ```
 
 برای آپلود عکس و ضبط صدا در `Info.plist`: `NSCameraUsageDescription`، `NSPhotoLibraryUsageDescription`، `NSMicrophoneUsageDescription`.
+
+
+### صفحه‌ی فعلی کاربر
+
+اپراتور کنار گفتگو می‌بیند کاربر الان در کدام صفحه‌ی اپ است:
+
+```swift
+HubChat.setScreen("checkout", title: "تکمیل خرید")
+```
 
 ## پشتیبانی
 - مستندات: https://hubchat.ir/docs/connect-channel/mobile_sdk

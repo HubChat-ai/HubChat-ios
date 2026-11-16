@@ -106,6 +106,25 @@ public final class HubChat: NSObject {
         command("closed")
     }
 
+    private var screen: [String: String]?
+
+    /// Tells operators which app screen the user is on (shown next to the chat and in
+    /// the panel's visit stats). Call it from viewDidAppear or your navigation coordinator.
+    public static func setScreen(_ name: String, title: String? = nil) {
+        let path = name.trimmingCharacters(in: .whitespaces).trimmingCharacters(in: CharacterSet(charactersIn: "/"))
+        guard !path.isEmpty else { return }
+        let encoded = path.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? path
+        shared.screen = ["url": "app://screen/\(encoded)", "title": title ?? name]
+        shared.sendScreen()
+    }
+
+    private func sendScreen() {
+        guard loaded, let screen,
+              let data = try? JSONSerialization.data(withJSONObject: ["source": "hubchat-loader", "type": "page"].merging(screen) { $1 }),
+              let payload = String(data: data, encoding: .utf8) else { return }
+        webView.evaluateJavaScript("window.postMessage(\(payload),'*');")
+    }
+
     private func command(_ type: String) {
         webView.evaluateJavaScript("window.postMessage({source:'hubchat-loader',type:'\(type)'},'*');")
     }
@@ -144,7 +163,9 @@ public final class HubChat: NSObject {
 
         switch type {
         case "close": HubChat.close()
-        case "ready": if isOpen { command("open") }
+        case "ready":
+            sendScreen()
+            if isOpen { command("open") }
         case "unread": if !isOpen { unread = (message["count"] as? Int) ?? unread + 1 }
         default: break
         }
